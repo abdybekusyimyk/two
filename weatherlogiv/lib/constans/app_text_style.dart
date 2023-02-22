@@ -6,7 +6,7 @@ class AppTextStyle {
       TextStyle(color: AppColors.black, fontSize: 28);
 
   static TextStyle centertitle =
-      TextStyle(fontSize: 50, color: AppColors.white);
+      TextStyle(fontSize: 40, color: AppColors.white);
 
   static const TextStyle temp = TextStyle(fontSize: 96, color: AppColors.white);
 }
