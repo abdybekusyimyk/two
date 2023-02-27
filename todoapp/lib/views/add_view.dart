@@ -31,7 +31,7 @@ class _AddViewState extends State<AddView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('AddView')),
+      appBar: AppBar(title: const Text('AddView')),
       body: Form(
         key: formKey,
         child: Padding(
@@ -93,7 +93,7 @@ class _AddViewState extends State<AddView> {
                           return const CupertinoAlertDialog(
                             title: Text('Kutuu'),
                             content: Padding(
-                              padding: const EdgeInsets.all(40.0),
+                              padding: EdgeInsets.all(40.0),
                               child: CupertinoActivityIndicator(
                                 radius: 30,
                                 color: Colors.teal,

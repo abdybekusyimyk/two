@@ -4,6 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:todoapp/models/todo.dart';
 import 'package:todoapp/views/add_view.dart';
 
+//=============================//
+// CRUD
+
+// Create
+// Read
+// Ubdate
+// Delete
+//============================//
+
 class HomeView extends StatefulWidget {
   const HomeView({
     super.key,
@@ -34,12 +43,33 @@ class _HomeViewState extends State<HomeView> {
     return db.collection('todoes').snapshots();
   }
 
+  Future<void> ubdateTodo(Todo todo) async {
+    final db = FirebaseFirestore.instance;
+    await db
+        .collection('todoes')
+        .doc(todo.id)
+        .update({'isselect': !todo.isselect});
+  }
+
+  Future<void> deleteTodo(Todo todo) async {
+    final db = FirebaseFirestore.instance;
+    await db.collection('todoes').doc(todo.id).delete();
+  }
+
+  // Future<void> ubdateTodo(bool isselect) async {
+  //   final db = FirebaseFirestore.instance;
+  //   await db
+  //       .collection('todoes')
+  //       .doc('RAVknBRlBrRhnkG06uWz')
+  //       .update({'isselect': false});
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("widget.title"),
+        title: const Text("widget.title"),
       ),
       body: StreamBuilder(
           stream: readTodoes(),
@@ -52,7 +82,11 @@ class _HomeViewState extends State<HomeView> {
               return Text(snapshot.error.toString());
             } else if (snapshot.hasData) {
               final List<Todo> todoes = snapshot.data!.docs
-                  .map((e) => Todo.fromJson(e.data() as Map<String, dynamic>))
+                  .map(
+                    (e) => Todo.fromJson(
+                      e.data() as Map<String, dynamic>,
+                    )..id = e.id,
+                  )
                   .toList();
               return ListView.builder(
                   itemCount: todoes.length,
@@ -61,9 +95,21 @@ class _HomeViewState extends State<HomeView> {
                     return Card(
                       child: ListTile(
                         title: Text(todo.title),
-                        trailing: Checkbox(
-                          value: todo.isselect,
-                          onChanged: (value) {},
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Checkbox(
+                              value: todo.isselect,
+                              onChanged: (value) async {
+                                await ubdateTodo(todo);
+                              },
+                            ),
+                            IconButton(
+                                onPressed: () async {
+                                  await deleteTodo(todo);
+                                },
+                                icon: const Icon(Icons.delete))
+                          ],
                         ),
                         subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

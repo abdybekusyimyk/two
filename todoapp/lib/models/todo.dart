@@ -6,12 +6,14 @@ class Todo {
       {required this.title,
       this.decription,
       required this.isselect,
-      required this.author});
+      required this.author,
+      this.id});
 
   final String title;
   final String? decription;
   final bool isselect;
   final String author;
+  String? id;
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
