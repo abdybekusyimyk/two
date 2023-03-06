@@ -30,11 +30,11 @@ class _TryCatchState extends State<TryCatch> {
           ),
           TextFormField(
             controller: birinchi,
-            decoration: InputDecoration(border: OutlineInputBorder()),
+            decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
           TextFormField(
             controller: ekinchi,
-            decoration: InputDecoration(border: OutlineInputBorder()),
+            decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
           ElevatedButton(
               onPressed: () {
